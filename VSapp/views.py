@@ -209,41 +209,34 @@ def download_pdf(request,pk):
     hadith_text = Hadith_Text_Image.objects.get(id=int(pk))
     # Create a file-like buffer to receive PDF data.
     # buffer = io.BytesIO()
-    pdfmetrics.registerFont(TTFont('Nastaliq', 'D:/FINAL_DEFENDING/HVS/CRS/urdu.ttf'))
-    pdfmetrics.registerFont(TTFont('ArabicFont', 'D:/FINAL_DEFENDING/HVS/CRS/arabic.ttf'))
+    # pdfmetrics.registerFont(TTFont('Nastaliq', 'D:/FINAL_DEFENDING/HVS/CRS/urdu.ttf'))
+    # pdfmetrics.registerFont(TTFont('ArabicFont', 'D:/FINAL_DEFENDING/HVS/CRS/arabic.ttf'))
     # Create the PDF object, using the buffer as its "file."
     # Generate the PDF
-    response = HttpResponse(content_type='application/pdf')
+    response = HttpResponse(content_type='application/pdf; charset=utf-8')
     response['Content-Disposition'] = 'attachment; filename="example.pdf"'
 
-    p = canvas.Canvas(response)
+    # Create a PDF
+    buffer = BytesIO()
+    pdf = canvas.Canvas(buffer, pagesize=letter)
 
-    # Positioning the text in the PDF
-    x = 100
-    y = 600
-    line_spacing = 20
+    # Use a font that supports Arabic, for example, "Arial"
+    pdf.setFont("Arial", 12)
 
-    # Urdu Translation
-    p.drawString(x, y, "Original Text:")
-    y -= line_spacing
-    p.setFont('ArabicFont', 15) 
-    p.drawString(x, y, hadith_text.hadith_text)
-    y -= line_spacing * 2  # Add extra spacing after Urdu translation
+    # Your Arabic text
+    arabic_text = u'مرحبا بالعالم'
 
-    # English Translation
-    p.drawString(x, y, "English Translation:")
-    y -= line_spacing
-    p.drawString(x, y, hadith_text.englist_translation)
-    y -= line_spacing * 2  # Add extra spacing after English translation
+    # Draw the Arabic text on the PDF
+    pdf.drawString(100, 700, arabic_text)
 
-    # Original Text
-    p.drawString(x, y, "Urdu Translation:")
-    p.setFont('Nastaliq', 12) 
-    y -= line_spacing
-    p.drawString(x, y, hadith_text.urdu_translation)
+    # Save the PDF content
+    pdf.save()
 
-    p.showPage()
-    p.save()
+    # Get the PDF content from the buffer and attach it to the response
+    pdf_bytes = buffer.getvalue()
+    buffer.close()
+    response.write(pdf_bytes)
+
     return response
 
 def books_admin(request):
@@ -254,7 +247,7 @@ def books_admin(request):
     if request.method == 'POST':
         # print(request.POST)
         books_data = Book_Table.objects.last()
-        hadith = Hadith_Text_Image.objects.filter(book_id=0)
+        hadith = Hadith_Text_Image.objects.filter(book_id=0,hadith_status='Approved')
         hadith_count = request.POST.get('page_count')
         if books_data:
             new_book_number = books_data.id + 1
