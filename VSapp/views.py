@@ -121,7 +121,7 @@ def upload_data(request):
             # print(s.file.path)
             paths=s.image_file.path
             image_text = ocr(paths)
-            with open('/home/buggydev/msy/project/HVS_admin/HVS/file.txt', 'r', encoding='utf-8') as myfile:
+            with open('D:/FINAL_DEFENDING/HVS/CRS/file.txt', 'r', encoding='utf-8') as myfile:
                 image_text = myfile.read()
                 data = re.search("(?<=\[)[^]]+(?=\])",image_text)
                 # print(data.group())
@@ -209,8 +209,8 @@ def download_pdf(request,pk):
     hadith_text = Hadith_Text_Image.objects.get(id=int(pk))
     # Create a file-like buffer to receive PDF data.
     # buffer = io.BytesIO()
-    pdfmetrics.registerFont(TTFont('Nastaliq', '/home/buggydev/msy/project/HVS_admin/HVS/urdu.ttf'))
-    pdfmetrics.registerFont(TTFont('ArabicFont', '/home/buggydev/msy/project/HVS_admin/HVS/arabic.ttf'))
+    pdfmetrics.registerFont(TTFont('Nastaliq', 'D:/FINAL_DEFENDING/HVS/CRS/urdu.ttf'))
+    pdfmetrics.registerFont(TTFont('ArabicFont', 'D:/FINAL_DEFENDING/HVS/CRS/arabic.ttf'))
     # Create the PDF object, using the buffer as its "file."
     # Generate the PDF
     response = HttpResponse(content_type='application/pdf')
@@ -247,8 +247,8 @@ def download_pdf(request,pk):
     return response
 
 def books_admin(request):
-    pdfmetrics.registerFont(TTFont('Nastaliq', '/home/buggydev/msy/project/HVS_admin/HVS/urdu.ttf'))
-    pdfmetrics.registerFont(TTFont('Naskh', '/home/buggydev/msy/project/HVS_admin/HVS/arabic.ttf'))
+    pdfmetrics.registerFont(TTFont('Nastaliq', 'D:/FINAL_DEFENDING/HVS/CRS/urdu.ttf'))
+    pdfmetrics.registerFont(TTFont('Naskh', 'D:/FINAL_DEFENDING/HVS/CRS/arabic.ttf'))
     # Create the PDF object, using the buffer as its "file."
     # Generate the PDF
     if request.method == 'POST':
