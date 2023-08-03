@@ -7,6 +7,7 @@ from django.http import HttpResponse, request
 from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 import io
+from reportlab.pdfbase.cidfonts import UnicodeCIDFont
 from django.core.files.base import ContentFile
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -90,7 +91,7 @@ def upload_data(request):
     if request.method=="POST":
         if request.POST['extract_text']:
             print("MINE",request.POST)
-        if request.POST.get('hadith_text'):
+        if request.POST.get('c'):
             try:
                 hadith_text = request.POST.get('hadith_text')
                 print("s",user_id)
@@ -104,9 +105,9 @@ def upload_data(request):
                 extract_text = request.POST.get('extract_text')
                 urdu_translation = request.POST.get('urdu_translation')
                 english_translation = request.POST.get('english_translation')
-
+                hadith_url = request.POST.get('hadith_url')
                 print("s",user_id)
-                obj = Hadith_Text_Image.objects.create(user_id=user_id.id,hadith_text=extract_text,urdu_translation=urdu_translation,englist_translation=english_translation)
+                obj = Hadith_Text_Image.objects.create(user_id=user_id.id,hadith_text=extract_text,urdu_translation=urdu_translation,englist_translation=english_translation,url=hadith_url)
                 obj.save()
                 return redirect('user_dashboard')
             except Exception as error:
@@ -120,7 +121,7 @@ def upload_data(request):
             # print(s.file.path)
             paths=s.image_file.path
             image_text = ocr(paths)
-            with open('D:/FINAL_DEFENDING/HVS/CRS/file.txt', 'r', encoding='utf-8') as myfile:
+            with open('/home/buggydev/msy/project/HVS_admin/HVS/file.txt', 'r', encoding='utf-8') as myfile:
                 image_text = myfile.read()
                 data = re.search("(?<=\[)[^]]+(?=\])",image_text)
                 # print(data.group())
@@ -163,12 +164,13 @@ def hadith_text(request,pk):
             hadith_text = request.POST.get('hadith_text')
             englist_translation = request.POST.get('english_translation')
             urdu_translation = request.POST.get('urdu_translation')
-
+            hadith_url = request.POST.get('hadith_url')
             status = request.POST.get('v_status')
             object = Hadith_Text_Image.objects.get(id=ids)
             object.verification_status = status 
             object.hadith_status = 'Approved' if status == 'Verified' else 'Wrong'
             object.hadith_text = hadith_text
+            object.url = hadith_url
             object.urdu_translation = urdu_translation
             object.englist_translation = englist_translation
             object.save()
@@ -179,8 +181,10 @@ def hadith_text(request,pk):
             hadith_text = request.POST.get('hadith_text')
             englist_translation = request.POST.get('english_translation')
             urdu_translation = request.POST.get('urdu_translation')
+            hadith_url = request.POST.get('hadith_url')
             object = Hadith_Text_Image.objects.get(id=ids)
             object.hadith_text = hadith_text
+            object.url = hadith_url
             object.hadith_status = 'Reviewed'
             object.urdu_translation = urdu_translation
             object.englist_translation = englist_translation
@@ -206,7 +210,7 @@ def download_pdf(request,pk):
     # Create a file-like buffer to receive PDF data.
     # buffer = io.BytesIO()
     pdfmetrics.registerFont(TTFont('Nastaliq', '/home/buggydev/msy/project/HVS_admin/HVS/urdu.ttf'))
-    pdfmetrics.registerFont(TTFont('Naskh', '/home/buggydev/msy/project/HVS_admin/HVS/arabic.ttf'))
+    pdfmetrics.registerFont(TTFont('ArabicFont', '/home/buggydev/msy/project/HVS_admin/HVS/arabic.ttf'))
     # Create the PDF object, using the buffer as its "file."
     # Generate the PDF
     response = HttpResponse(content_type='application/pdf')
@@ -222,7 +226,7 @@ def download_pdf(request,pk):
     # Urdu Translation
     p.drawString(x, y, "Original Text:")
     y -= line_spacing
-    p.setFont('Naskh', 12) 
+    p.setFont('ArabicFont', 15) 
     p.drawString(x, y, hadith_text.hadith_text)
     y -= line_spacing * 2  # Add extra spacing after Urdu translation
 
@@ -243,8 +247,8 @@ def download_pdf(request,pk):
     return response
 
 def books_admin(request):
-    pdfmetrics.registerFont(TTFont('Nastaliq', 'D:/FINAL_DEFENDING/HVS/CRS/arabic.ttf'))
-    pdfmetrics.registerFont(TTFont('Naskh', 'D:/FINAL_DEFENDING/HVS/CRS/urdu.ttf'))
+    pdfmetrics.registerFont(TTFont('Nastaliq', '/home/buggydev/msy/project/HVS_admin/HVS/urdu.ttf'))
+    pdfmetrics.registerFont(TTFont('Naskh', '/home/buggydev/msy/project/HVS_admin/HVS/arabic.ttf'))
     # Create the PDF object, using the buffer as its "file."
     # Generate the PDF
     if request.method == 'POST':
@@ -294,7 +298,7 @@ def books_admin(request):
                 obj = Hadith_Text_Image.objects.get(id=int(had.id))
                 obj.book_id = str(book.id)
                 obj.save()
-
+    pdfmetrics.registerFont(UnicodeCIDFont('STSong-Light'))
     books = Book_Table.objects.all()
     context = {'books':books}
     return render(request,'VSapp/dashboard_admin.html',context)

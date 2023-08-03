@@ -48,6 +48,7 @@ class Hadith_Text_Image(models.Model):
     englist_translation = models.CharField(max_length=100000,null=True)
     hadith_status = models.CharField(max_length=35,choices=hadith_choice_status,default='Pending')
     book_id = models.CharField(max_length=254,default="0")
+    url = models.CharField(max_length=100000000000,null=True)
 
     def __str__(self):
         return self.hadith_text
