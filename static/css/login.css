@@ -1,0 +1,152 @@
+.cl3{
+    display: flex;
+    width: 80rem;
+    margin-left: 100px;
+}
+.container3{
+    
+    height: 600px;
+    width: 55rem;
+    background-color: #27AF5D;
+    border-radius: 20px;
+    margin-left: 50px;
+    margin-top: 60px;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0px;
+    
+}
+.container5{
+    background-color: #D3D9D8;
+    height: 600px;
+    width: 58rem;
+    margin-top: 60px;
+    margin-left: 0rem;
+    border-radius: 20px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0px;
+    
+}
+
+.left-top1{
+    padding-top: 6rem;
+    margin-left: 13rem;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;    
+
+}
+.email1{
+    margin-top: 80px;
+    padding-left: 20px;
+    margin-left: 12rem;
+    border-radius: 7px;
+    height: 50px;
+    width: 20rem;
+    font-weight: bold;
+    background-color: #D9D9D9;
+    border: 1px solid black;
+}
+.password1{
+    font-weight: bold;
+    margin-top: 20px;
+    padding-left: 20px;
+    margin-left: 12rem;
+    border-radius: 7px;
+    height: 50px;
+    width: 20rem;
+    background-color: #D9D9D9;
+    border: 1px solid black;
+}
+.con_31{
+    display: flex;
+    flex-direction: row;
+    gap: 1px;
+}
+
+.remeber1{
+    font-size: 15px;
+    margin-top: 30px;
+    margin-left: 10rem;
+}
+.forgot1{
+    font-size: 15px;
+    margin-top: 30px;
+    margin-left: 12rem;
+}
+
+.btn-sign1{
+    font-weight:normal;
+    font-size: 15px;
+    height: 50px;
+    width: 10rem;
+    margin-top: 30px;
+    margin-left: 18rem;
+    background-color: #848484;
+    border-radius: 15px;
+    box-shadow: 1px rgba(15, 218, 133, 0.226);
+    border: 2px solid #b3b0b0;
+    transition: 0.5s;
+}
+.btn-sign1:hover {
+    background-color: #383a38;
+    color: white;
+    transform: scale(1.2);
+  }
+
+.ln1{
+    margin-top: 30px;
+    margin-left: 14rem;
+    font-weight: medium;
+}
+
+.btn-loginn{
+    position: fixed;
+    color: white;
+    margin-top: 30rem;
+    font-weight:normal;
+    font-size: 15px;
+    height: 50px;
+    width: 9rem;
+    margin-left: 12rem;
+    background-color: #27AF5D;
+    border-radius: 15px;
+    box-shadow: 1px rgba(15, 218, 133, 0.226);
+    border: 2px solid #368a44;
+    transition: 0.5s;
+}
+.btn-loginn:hover {
+    background-color:  #063006;
+    color: white;
+    transform: scale(1.2);
+  }
+.a_link{
+    text-decoration: none;
+    color:#f9faf9;
+}
+.sign1{
+    background-color: #D9D9D9;
+}
+.sign1:hover {
+    background-color: #383a38;
+    color: white;
+    transform: scale(1.2);
+  }
+
+.iconlogin{
+    border-radius: 15px;
+    height: 30%;
+    width: 15%;
+    position: fixed;
+    margin-top: 10rem;
+    margin-left: 8rem;
+
+}
+.review{
+    color: #f9faf9;
+    margin-left: 7rem;
+    margin-top: 5rem;
+    position: fixed;
+    font-size: 230%;
+    /* font-family: sans-serif; */
+    font-weight: 600;
+}

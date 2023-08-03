@@ -1,0 +1,51 @@
+{%  extends 'VSapp/main_admin.html' %}
+{% load static %}
+{% block content %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Review System</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'css/styles_index.css' %}">
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="https://images.g2crowd.com/uploads/product/image/large_detail/large_detail_0e26aec5fcd5c4a4a2cf1881f4c69e69/optimizely-content-management-system.png" alt="Logo" class="rounded-circle">
+      <h1>Content Review System</h1>
+    </div>
+    <br>
+    <div class="content">
+      <h4>Content Upload</h4><br>
+      <form action="" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% for data in hadith_data %}
+      <div style="border: 1px solid lightgrey;width: 100px;">
+      <h5 for="hadith_status">Hadith Status</h5>
+      <label for="hadith_status">{{data.hadith_status}}</label>
+    </div>
+      <h5>Text Editor</h5>
+      <textarea rows="1" name="hadith_text" >{{data.hadith_text}}</textarea>
+      <h5>Translation (English)</h5>
+      <textarea rows="1" name="english_translation">{{data.englist_translation}}</textarea>
+      <h5>Translation (Urdu)</h5>
+      <textarea rows="1"" name="urdu_translation">{{data.urdu_translation}}</textarea>
+      
+      <input type="hidden" name="id" value="{{data.id}}">
+    {% endfor %}
+      <div class="submit">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+      </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
+{% endblock %}

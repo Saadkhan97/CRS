@@ -1,0 +1,48 @@
+{%  extends 'VSapp/main_admin_user.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/main_dashboard.css' %}" >
+</head>
+<body>
+   
+
+  
+       <!-- OLD NAV -->
+
+
+          <div class="container-fluid">
+            <div class="row">
+              
+                <h5>BOOKS</h5>
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                <div class="col-12">
+                    <h5>Create Book</h5>
+                    <button type="submit">Create Books</button>
+                </form>
+            </div>
+              <br>
+              <br>
+              <table class="table table-striped" style="text-align: center;">
+                <thead style="background: #2eb163;">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Book Name</th>
+                    <th scope="col">Download</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for book in books %}
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{book.book_name}}</td>
+                    <td><a href="{{ book.book_files.url }}" download>Download</a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+           </div>
+           </div>
+</body>
+</html>
+{% endblock %}

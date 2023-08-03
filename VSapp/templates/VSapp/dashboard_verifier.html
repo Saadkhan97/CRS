@@ -1,0 +1,121 @@
+{%  extends 'VSapp/main_admin.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+<link rel="stylesheet"  href="{% static 'css/style2.css' %}">
+<br>
+<style>
+    
+    .btn-primary{
+      color: #080103;
+      background-color: #2eb163;
+      font-size: large;
+      border-color: #2eb163;
+    }
+  .btn-primary:hover{
+    background-color: #022c13;
+    font-size: bold;
+    color: #2eb163;
+  }
+
+	table{
+        width: 100%;
+        table-layout: fixed;
+		position: relative;
+		font-family: 'Times New Roman', Times, serif;
+        text-align:center
+	}
+
+	td{
+		position: relative;
+		font-size: 20px;
+		font-family: 'Times New Roman', Times, serif;
+	}
+	th {
+		position: relative;
+		border:1px solid black;
+		color: #2eb163;
+		font-family: 'Times New Roman', Times, serif;
+	}
+    
+</style>
+<body><div class="row">
+	<div class="col-md-6" style="position: relative;left: 15px;">
+		<h5>STATUS</h5>
+		<hr>
+		<div class="card card-body">
+			<div style="width: 100%;">
+            <div style="width: 100%; text-align: center; position: relative;color: #2eb163;">
+                <h4>STATUS OF DONE TASK</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hadith Text</th>
+                            <th>Verfied Status</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in hadith_data %}
+                            <tr>
+                                {% if data.verification_status == 'Verified' %}
+                                <td>{{data.hadith_text}}</td>
+                                <td style="color: #0c4623;font-weight: bold;">{{data.verification_status}}</td>
+                                <td ><a style="width: 60%;color: #2eb163;"
+                                    href="{% url 'hadith_text' data.id  %}">View </a></td>
+                                {% elif data.verification_status == 'Wrong' %}
+                                <td>{{data.hadith_text}}</td>
+                                <td style="color: rgb(206, 17, 17);font-weight: bold;">{{data.verification_status}}</td>
+                                <td ><a style="width: 60%;color: #2eb163;"
+                                    href="{% url 'hadith_text' data.id  %}">View </a></td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+		</div>
+
+	</div>
+	</div>
+    <div class="col-md-6" style="
+    position: relative;
+    left: -7px;
+    color: #2eb163;
+">
+		<h5>STATUS</h5>
+		<hr>
+		<div class="card card-body">
+			<div style="width: 100%;">
+            <div style="width: 100%; text-align: center; position: relative;">
+                <h4>STATUS OF PENDING DATA</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hadith Text</th>
+                            <th>Verification Status</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in hadith_data %}
+                            <tr>
+                                {% if data.verification_status == 'Pending' %}
+                                    <td>{{data.hadith_text}}</td>   
+                                    <td style="color: #725808;font-weight: bold;">{{data.verification_status}}</td>
+                                    <td ><a style="width: 60%;color: #2eb163;"
+                                        href="{% url 'hadith_text' data.id  %}">View </a></td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+		</div>
+
+	</div>
+    </div>
+</body>
+{% endblock %}

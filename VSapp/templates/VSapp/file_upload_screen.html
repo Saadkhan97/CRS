@@ -1,0 +1,67 @@
+{%  extends 'VSapp/main_user.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Review System</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'css/styles_index.css' %}">
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="https://images.g2crowd.com/uploads/product/image/large_detail/large_detail_0e26aec5fcd5c4a4a2cf1881f4c69e69/optimizely-content-management-system.png" alt="Logo" class="rounded-circle">
+      <h1>Content Review System</h1>
+    </div>
+    <br>
+    <div class="content">
+      <h4>Content Upload</h4><br>
+      <form action="" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+        <div class="upload">
+        <label class="">
+          Upload Image
+        </label>
+        <input type="file" name="my_files" accept="image/png, image/jpeg">
+        <input type="submit" name="extract_ocr_data" value="EXTRACT FROM IMAGE">
+      </div>
+      <br>
+      <h5>Text Editor</h5>
+      <textarea rows="2" name="extract_text" >{{image_text}}</textarea>
+      <h5>Translation (English)</h5>
+      <textarea rows="2"" name="english_translation"></textarea>
+      <h5>Translation (Urdu)</h5>
+      <textarea rows="3"" name="urdu_translation"></textarea>
+      <div class="submit">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+      </div>
+  </div>
+
+  <!-- Bootstrap Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Submission Successful</h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          Thank you for your submission!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
+{% endblock %}

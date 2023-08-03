@@ -1,0 +1,106 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/user.css' %}"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<body>
+    <div>
+        <div class="cont2">
+            <div class="cont12">
+                        <img class="icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjrg6ZfznJ6BtpFaJYRfXDcJd9pRvyuhHU_A&usqp=CAU">
+            
+          
+            <p class="texting">User</p>
+            <button
+            class="btnlogout">
+              <a href="{% url 'logout' %}" style="text-decoration: None; color:rgb(255, 255, 255); ">Logout</a>
+            
+          </button>
+          <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+          <p class="upload">Upload an Image</p>
+          <input type="submit" value="EXTRACT FROM IMAGE" style="
+          position: absolute;
+          top: 18rem;
+          left: 5rem;
+      ">
+            <!-- <input class="upload_image" placeholder='Upload Image'/> -->
+            
+            <input type="file" name="my_files" class="btn_image" accept="image/png, image/jpeg" />
+            <!-- <button class="btn_image" >Choose File</button> -->
+            
+            <p class="extract">Extract from OCR</p>
+            <input class="extract_text" placeholder='Extract from OCR' value="{{image_text}}"/>
+            <button class="post" type="submit" >
+              <a style="text-decoration: None; color:white; ">Post Successfully</a></button>
+          <!-- <img src="" alt="" className='insert_text' /> -->
+
+          
+
+          <p class="insertt12">Insert the Text</p>
+          <input class="insert_text" name="hadith_text" placeholder='Insert a Text'/>
+          <form/>
+            <!-- <div class="status">
+              Status From Verifier
+            
+              <!-- <button class="verfy" >Verified</button>
+              <button class="pending" >Pending</button>
+              <button class="not_verfy" >Not Verified</button> -->
+            <!-- </div> --> 
+
+            
+            <!-- <p class="ayat_text2">Al-Fatiah Ayah no.1</p>
+            <img src="" alt="" className='aya2' />
+            <hr/>
+            <div class="read2">
+              <h1 class="last_h12">AYAH OF THE DAY</h1>
+            <p class='last_par2'>
+            It is Allah who exected the heavens without pillars that you can see; then. He established Himself above the Throne...
+            <p class='last_text2'>
+             Read Now
+             </p>
+             </p>
+            </div> -->
+            </div>
+            <div style="position: absolute;left: 63rem;top: 20rem;width: 27%;overflow-y: scroll;">
+              <h3>Status From Verifier</h3>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>TEXT</th>
+                    <th>Verifier Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for data in hadith_data %}
+                  <tr>
+                      <td>{{data.hadith_text}}</td>
+                      {% if data.verification_status == 'Not Verified' %}
+                      <td style="color: #725808;font-weight: bold;">{{data.verification_status}}</td>
+                      {% elif data.verification_status == 'Verified' %}
+                      <td style="color: rgb(93, 17, 226);font-weight: bold;">{{data.verification_status}}</td>
+                      <td><a href="{% url 'download_pdf' %}">Download</a></td>
+                      {% elif data.verification_status == 'Wrong' %}
+                      <td style="color: rgb(206, 17, 17);font-weight: bold;">{{data.verification_status}}</td>
+                      {% endif %}
+                  </tr>
+                  {% endfor %}
+              </tbody>
+            </table>
+            </div>
+      </div>
+      </div>
+</body>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+</html>

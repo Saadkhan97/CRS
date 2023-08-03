@@ -1,0 +1,80 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/verifer.css' %}"/>
+    <meta charset="UTF-8">
+    <title>Verifier</title>
+</head>
+<body>
+    <div>
+        <div class="cont2">
+            <div class="cont12">
+              <img class="icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjrg6ZfznJ6BtpFaJYRfXDcJd9pRvyuhHU_A&usqp=CAU">
+
+            <p class="text2"></p>
+            
+            <!-- <p class="icon12"></p>
+            <p class="icon22"></p>
+            <button class="supp2">Support</button> -->
+          
+            <p class="texting">Verifier Details</p>
+            <button
+            class="btnlogout">
+              <a href="{% url 'login' %}" style="text-decoration: None; color:white; ">Logout</a>
+            
+          </button>
+          <form action="" method="post">
+            {% csrf_token %}  
+          {% for data in hadith_data %}
+           <p class="upload">Edit the Text</p>
+            <!-- <input class="upload_image" placeholder='Upload Image'/> -->
+            <div>
+            <input type="hidden" name="id" value="{{data.id}}">
+            <textarea name="hadith_text" class="insert_edit" id="hadith_text" cols="50" rows="2">{{data.hadith_text}}</textarea>
+          </div>
+            <!-- <textarea type="textarea" class="insert_edit" placeholder='Edit the Text'/> -->
+            <!-- <input type="file" class="btn_image" accept="image/png, image/gif, image/jpeg" /> -->
+            <!-- <button class="btn_image" >Choose File</button> -->
+            <div style="width: 50%;height: 39px;position: absolute;top: 25rem;left: 1rem;">
+              Verification Status
+              <select name="verification_status" id="verification_status" style="height: 124%;">
+              <option>{{data.verification_status}}</option>
+              {% for cats in v_option_list %}
+                  <option name="{{cats}}">{{cats}}</option>
+              {% endfor %}
+          </select>
+          </div><button class="post" type="submit">
+                Verified Successfully</a></button>
+            <!-- <img src="" alt="" className='insert_text' /> -->
+                {% endfor %}
+              </form>
+            
+            
+            <!-- <p class="ayat_text2">Al-Fatiah Ayah no.1</p>
+            <img src="" alt="" className='aya2' />
+            <hr/>
+            <div class="read2">
+              <h1 class="last_h12">AYAH OF THE DAY</h1>
+            <p class='last_par2'>
+            It is Allah who exected the heavens without pillars that you can see; then. He established Himself above the Throne...
+            <p class='last_text2'>
+             Read Now
+             </p>
+             </p>
+            </div> -->
+            </div>
+        
+        <div className='con22'>
+  
+            
+  
+                
+  
+                
+            </div>
+      </div>
+      </div>
+</body>
+</html>
